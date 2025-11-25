@@ -45,7 +45,8 @@ export interface User {
 export interface Puppy {
   id: number;
   name: string;
-  imageUrl: string;
+  // imageUrl: string;
+  image_url: string;
   trait: string;
   likedBy: User["id"][];
 }

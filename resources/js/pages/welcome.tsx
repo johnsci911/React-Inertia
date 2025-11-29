@@ -19,16 +19,14 @@ export default function App({puppies}: { puppies: Puppy[] }) {
         <Header />
         <ul className="flex gap-4 flex-wrap mt-4">
           {puppies.map((puppy) => (
-            <div className="bg-white p-6 ring ring-black/10 flex gap-2">
-              <li>
-                <img
-                  src={puppy.image_url}
-                  alt={puppy.name}
-                  className="size-24 object-cover"
-                />
-                {puppy.name}
-              </li>
-            </div>
+            <li key={puppy.id} className="flex gap-2 bg-white p-6 ring ring-black/10">
+              <img
+                src={puppy.image_url}
+                alt={puppy.name}
+                className="size-24 object-cover"
+              />
+              {puppy.name}
+            </li>
           ))}
         </ul>
         <div className="shadow"></div>

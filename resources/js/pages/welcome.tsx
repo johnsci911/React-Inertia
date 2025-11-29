@@ -12,20 +12,24 @@ import { LoaderCircle } from "lucide-react"
 import { getPuppies } from "@/queries"
 import { ErrorBoundary } from "react-error-boundary"
 
-export default function App({puppies}: { puppies: Puppy[] }) {
+export default function App({ puppies }: { puppies: Puppy[] }) {
   return (
     <PageWrapper>
       <Container>
         <Header />
+        {/*<pre>{JSON.stringify(puppies, null, 2)}</pre>*/}
         <ul className="flex gap-4 flex-wrap mt-4">
           {puppies.map((puppy) => (
             <li key={puppy.id} className="flex gap-2 bg-white p-6 ring ring-black/10">
               <img
-                src={puppy.image_url}
+                src={puppy.imageUrl}
                 alt={puppy.name}
                 className="size-24 object-cover"
               />
-              {puppy.name}
+              <div>
+                <h2>{puppy.name}</h2>
+                <p>Owner: {puppy.user.name}</p>
+              </div>
             </li>
           ))}
         </ul>

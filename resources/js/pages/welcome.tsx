@@ -16,13 +16,13 @@ export default function App({ puppies }: { puppies: Puppy[] }) {
       <Container>
         <Header />
         <div className="shadow"></div>
-          <Main pups={puppies} />
+          <Main inertiaPuppies={puppies} />
       </Container>
     </PageWrapper>
   )
 }
 
-function Main({ pups: inertiaPuppies }: { pups: Puppy[] }) {
+function Main({ inertiaPuppies }: { inertiaPuppies: Puppy[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [puppies, setPuppies] = useState<Puppy[]>(inertiaPuppies);
   const { auth } = usePage<SharedData>().props;
@@ -32,14 +32,14 @@ function Main({ pups: inertiaPuppies }: { pups: Puppy[] }) {
       <div className="mt-24 grid gap-8 sm:grid-cols-2">
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         {auth.user && (
-          <Shortlist puppies={puppies} setPuppies={setPuppies} />
+          <Shortlist puppies={inertiaPuppies} setPuppies={setPuppies} />
         )}
       </div>
       <PuppiesList
         puppies={inertiaPuppies}
         searchQuery={searchQuery}
       />
-      <NewPuppyForm puppies={puppies} setPuppies={setPuppies} />
+      <NewPuppyForm puppies={inertiaPuppies} setPuppies={setPuppies} />
     </main>
   );
 }

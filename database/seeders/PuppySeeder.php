@@ -26,6 +26,19 @@ class PuppySeeder extends Seeder
             ['name' => 'Frisket', 'trait' => 'Mother of all pups', 'image' => '1.jpg'],
         ];
 
+        // Use Faker for random names and traits
+        $faker = \Faker\Factory::create('en_US');
+
+        // Add 100 more puppies with random images and English words as trait
+        for ($i = 1; $i <= 100; $i++) {
+            $imageNumber = $faker->numberBetween(1, 22);
+            $puppies[] = [
+                'name' => $faker->firstNameMale,
+                'trait' => implode(' ', $faker->words(5, false)),
+                'image' => "{$imageNumber}.jpg",
+            ];
+        }
+
         $johnkarlo = User::first();
 
         foreach ($puppies as $puppy) {

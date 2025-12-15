@@ -1,13 +1,12 @@
 import { Heart, LoaderCircle } from "lucide-react";
 import { Puppy, SharedData } from "../types";
-import { usePage } from "@inertiajs/react";
+import { usePage, useForm } from "@inertiajs/react";
 import clsx from "clsx";
 import { like } from "@/routes/puppies";
-import { useForm } from "@inertiajs/react";
 
 export function LikeToggle({ puppy }: { puppy: Puppy }) {
   const { auth } = usePage<SharedData>().props;
-  const { processing, patch } = useForm();
+  const { processing, patch } = useForm({});
 
   return (
     <form

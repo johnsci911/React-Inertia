@@ -39,7 +39,7 @@ export interface User {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
+    [key: string]: unknown;
 }
 
 export interface Puppy {
@@ -49,4 +49,9 @@ export interface Puppy {
   trait: string;
   user: Pick<User, "id" | "name">;
   likedBy: User["id"][];
+}
+
+export interface Filters {
+    search: string;
+    [key: string]: unknown;
 }

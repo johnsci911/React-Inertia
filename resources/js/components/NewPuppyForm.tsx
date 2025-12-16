@@ -1,73 +1,81 @@
-import { Dispatch, SetStateAction } from "react";
-import { Puppy } from "../types";
 import { useFormStatus } from "react-dom";
-import { createPuppy } from "../queries";
+import { Link, useForm } from "@inertiajs/react";
+import { store } from "@/routes/puppies";
 
-export function NewPuppyForm({
-  puppies,
-  setPuppies,
-}: {
-  puppies: Puppy[]
-  setPuppies: Dispatch<SetStateAction<Puppy[]>>
-}) {
+export function NewPuppyForm() {
+  const { post, setData, data, errors } = useForm({
+    name: '',
+    trait: '',
+    image: null as File | null,
+  });
+
   return (
-    <div className="mt-12 flex items-center justify-between bg-white p-8 shadow ring ring-black/5">
-      <form
-        action={async (formData: FormData) => {
-          const newPuppy = await createPuppy(formData);
-          setPuppies([...puppies, newPuppy]);
-        }}
-        className="mt-4 flex w-full flex-col items-start gap-4"
-      >
-        <div className="grid w-full gap-6 md:grid-cols-3">
-          <fieldset className="flex w-full flex-col gap-1">
-            <label htmlFor="name">Name</label>
-            <input
-              required
-              className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              id="name"
-              type="text"
-              name="name"
-            />
-          </fieldset>
-          <fieldset className="flex w-full flex-col gap-1">
-            <label htmlFor="trait">Personality trait</label>
-            <input
-              required
-              className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              id="trait"
-              type="text"
-              name="trait"
-            />
-          </fieldset>
-          <fieldset
-            className="col-span-2 flex w-full flex-col gap-1"
-          >
-            <label htmlFor="image_url">Profile pic</label>
-            <input
-              required
-              className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              id="image_url"
-              type="file"
-              name="image_url"
-            />
-          </fieldset>
-        </div>
-        <SubmitButton />
-      </form>
-    </div>
+    <>
+      <div className="mt-12 flex items-center justify-between bg-white p-8 shadow ring ring-black/5">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            post(store.url(), {
+              preserveScroll: true,
+            });
+          }}
+          className="mt-4 flex w-full flex-col items-start gap-4"
+        >
+          <div className="grid w-full gap-6 md:grid-cols-3">
+            <fieldset className="flex w-full flex-col gap-1">
+              <label htmlFor="name">Name</label>
+              <input
+                value={data.name}
+                className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                id="name"
+                type="text"
+                name="name"
+                onChange={(e) => setData("name", e.target.value)}
+              />
+              {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+            </fieldset>
+            <fieldset className="flex w-full flex-col gap-1">
+              <label htmlFor="trait">Personality trait</label>
+              <input
+                value={data.trait}
+                className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                id="trait"
+                type="text"
+                name="trait"
+                onChange={(e) => setData("trait", e.target.value)}
+              />
+              {errors.trait && <p className="text-xs text-red-500">{errors.trait}</p>}
+            </fieldset>
+            <fieldset
+              className="col-span-2 flex w-full flex-col gap-1"
+            >
+              <label htmlFor="image">Profile pic</label>
+              <input
+                className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                id="image"
+                type="file"
+                name="image"
+                onChange={(e) => setData('image', e.target.files ? e.target.files[0] : null)}
+              />
+              {errors.image && <p className="text-xs text-red-500">{errors.image}</p>}
+            </fieldset>
+          </div>
+          <SubmitButton />
+        </form>
+      </div>
+    </>
   );
 
   function SubmitButton() {
     const status = useFormStatus();
     return (
-        <button
-          className="mt-4 inline-block rounded bg-cyan-300 px-4 py-2 font-medium text-cyan-900 hover:bg-cyan-200 focus:ring-2 focus:ring-cyan-500 focus:outline-none disabled:bg-slate-200 disabled:cursor-not-allowed"
-          type="submit"
-          disabled={status.pending}
-        >
-          {status.pending ? `Adding ${status?.data?.get("name") || "puppy"}...` : "Add puppy"}
-        </button>
+      <button
+        className="mt-4 inline-block rounded bg-cyan-300 px-4 py-2 font-medium text-cyan-900 hover:bg-cyan-200 focus:ring-2 focus:ring-cyan-500 focus:outline-none disabled:bg-slate-200 disabled:cursor-not-allowed"
+        type="submit"
+        disabled={status.pending}
+      >
+        {status.pending ? `Adding ${status?.data?.get("name") || "puppy"}...` : "Add puppy"}
+      </button>
     )
   }
 }

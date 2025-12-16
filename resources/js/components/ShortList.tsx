@@ -3,6 +3,7 @@ import { Heart, LoaderCircle, X } from "lucide-react";
 import { useForm, usePage } from "@inertiajs/react";
 import { like } from "@/routes/puppies";
 
+// TODO: Make sure all the liked puppies are showing not just in the current page
 export function Shortlist({
   puppies,
 }: {

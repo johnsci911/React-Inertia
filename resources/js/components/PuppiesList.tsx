@@ -1,17 +1,21 @@
-import { type Puppy } from "../types";
+import { PaginationResponse, type Puppy } from "../types";
 import { LikeToggle } from "./LikeToggle";
+import { Pagination } from "./pagination";
 
 export function PuppiesList({
   puppies,
 }: {
-  puppies: Puppy[],
+  puppies: PaginationResponse<Puppy>;
 }) {
   return (
-    <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {puppies.map((puppy) => (
-        <PuppyCard key={puppy.id} puppy={puppy} />
-      ))}
-    </ul>
+    <>
+      <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {puppies.data.map((puppy) => (
+          <PuppyCard key={puppy.id} puppy={puppy} />
+        ))}
+      </ul>
+      <Pagination className="mt-6 border border-gray-200 rounded-lg p-2" meta={puppies.meta} links={puppies.links} />
+    </>
   );
 }
 

@@ -55,3 +55,27 @@ export interface Filters {
     search: string;
     [key: string]: unknown;
 }
+
+export interface PaginationMeta {
+    current_page: number;
+    from: number | null;
+    last_page: number;
+    links: PaginationLink[];
+    path: string;
+    per_page: number;
+    to: number | null;
+    total: number;
+}
+
+export interface PaginationLinks {
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
+}
+
+export interface PaginationResponse<T> {
+    data: T[];
+    meta: PaginationMeta;
+    links: PaginationLinks;
+}

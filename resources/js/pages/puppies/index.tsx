@@ -7,23 +7,23 @@ import { Search } from "@/components/Search"
 import { Shortlist } from "@/components/ShortList"
 
 import { useState } from "react"
-import { Filters, Puppy, SharedData } from "@/types"
+import { Filters, PaginationResponse, Puppy, SharedData } from "@/types"
 import { usePage } from "@inertiajs/react"
 
-export default function App({ puppies, filters }: { puppies: Puppy[], filters: Filters }) {
+export default function App({ puppies, filters }: { puppies: PaginationResponse<Puppy>, filters: Filters }) {
   return (
     <PageWrapper>
       <Container>
         <Header />
         <div className="shadow"></div>
-          <Main inertiaPuppies={puppies} filters={filters} />
+          <Main paginatedPuppies={puppies} filters={filters} />
       </Container>
     </PageWrapper>
   )
 }
 
-function Main({ inertiaPuppies, filters }: { inertiaPuppies: Puppy[], filters: Filters }) {
-  const [setPuppies] = useState<Puppy[]>(inertiaPuppies);
+function Main({ paginatedPuppies, filters }: { paginatedPuppies: PaginationResponse<Puppy>, filters: Filters }) {
+  const [puppies, setPuppies] = useState(paginatedPuppies.data)
   const { auth } = usePage<SharedData>().props;
 
   return (
@@ -31,13 +31,11 @@ function Main({ inertiaPuppies, filters }: { inertiaPuppies: Puppy[], filters: F
       <div className="mt-24 grid gap-8 sm:grid-cols-2">
         <Search filters={filters} />
         {auth.user && (
-          <Shortlist puppies={inertiaPuppies} />
+          <Shortlist puppies={paginatedPuppies.data} />
         )}
       </div>
-      <PuppiesList
-        puppies={inertiaPuppies}
-      />
-      <NewPuppyForm puppies={inertiaPuppies} setPuppies={setPuppies} />
+      <PuppiesList puppies={paginatedPuppies} />
+      <NewPuppyForm puppies={paginatedPuppies.data} setPuppies={setPuppies} />
     </main>
   );
 }

@@ -1,13 +1,15 @@
 import { useFormStatus } from "react-dom";
-import { Link, useForm } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { store } from "@/routes/puppies";
+import { RefObject, useRef } from "react";
 
-export function NewPuppyForm() {
-  const { post, setData, data, errors } = useForm({
+export function NewPuppyForm({ mainRef }: { mainRef?: RefObject<HTMLElement | null> }) {
+  const { post, setData, data, errors, reset } = useForm({
     name: '',
     trait: '',
     image: null as File | null,
   });
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -17,6 +19,15 @@ export function NewPuppyForm() {
             e.preventDefault();
             post(store.url(), {
               preserveScroll: true,
+              onSuccess: () => {
+                reset();
+                if (fileInputRef.current) {
+                  fileInputRef.current.value = '';
+                }
+                if (mainRef?.current) {
+                  mainRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              },
             });
           }}
           className="mt-4 flex w-full flex-col items-start gap-4"
@@ -51,6 +62,7 @@ export function NewPuppyForm() {
             >
               <label htmlFor="image">Profile pic</label>
               <input
+                ref={fileInputRef}
                 className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
                 id="image"
                 type="file"

@@ -23,6 +23,7 @@ class PuppyController extends Controller
                             ->orWhere('trait', 'like', '%' . $search . '%');
                     })
                     ->with(['user', 'likedBy'])
+                    ->latest()
                     ->paginate(9)
                     ->withQueryString()
             ),
@@ -34,28 +35,34 @@ class PuppyController extends Controller
 
     public function store(Request $request)
     {
+        sleep(2);
         // Validate the data
         $request->validate([
             'name' => 'required|string|max:255',
             'trait' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg|max:5120',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
+        // Store the uploaded image
         $image_url = null;
 
-        // Store the uploaded image
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('puppes' , 'public');
+            $path = $request->file('image')->store('puppies', 'public');
             if (!$path) {
-                return back()->withErrors(['image' => 'Could not upload image']);
+                return back()->withErrors(['image' => 'Failed to upload image.']);
             }
             $image_url = Storage::url($path);
         }
 
-        dd($image_url);
+        // Create a new Puppy instance attached to the authenticated user
+        $request->user()->puppies()->create([
+            'name' => $request->name,
+            'trait' => $request->trait,
+            'image_url' => $image_url,
+        ]);
 
-        // Create new Puppy instance attached to the authenticated user
-        // Return to the same page with a success message
+        // Redirect to the same page
+        return back()->with('success', 'Puppy created successfully!');
     }
 
     public function like(Request $request, Puppy $puppy)

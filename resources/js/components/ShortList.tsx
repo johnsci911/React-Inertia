@@ -1,15 +1,15 @@
-import { Puppy, SharedData } from "../types";
+import { Puppy } from "../types";
 import { Heart, LoaderCircle, X } from "lucide-react";
-import { useForm, usePage } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { like } from "@/routes/puppies";
 
-// TODO: Make sure all the liked puppies are showing not just in the current page
 export function Shortlist({
   puppies,
 }: {
   puppies: Puppy[];
 }) {
-  const { auth } = usePage<SharedData>().props;
+  const firstFivePuppies = puppies.slice(0, 5);
+  const extraPuppies = puppies.length - firstFivePuppies.length;
 
   return (
     <div>
@@ -18,24 +18,27 @@ export function Shortlist({
         <Heart className="fill-pink-500 stroke-pink-500" />
       </h2>
       <ul className="mt-4 flex flex-wrap gap-4">
-        {puppies
-          .filter((pup) => pup.likedBy.includes(auth.user?.id))
-          .map((puppy) => (
-            <li
-              key={puppy.id}
-              className="relative flex items-center overflow-clip rounded-md bg-white shadow-sm ring ring-black/5 transition duration-100 starting:scale-0 starting:opacity-0"
-            >
-              <img
-                height={32}
-                width={32}
-                alt={puppy.name}
-                className="aspect-square w-8 object-cover"
-                src={puppy.imageUrl}
-              />
-              <p className="px-3 text-sm text-slate-800">{puppy.name}</p>
-              <DeleteButton id={puppy.id} />
-            </li>
-          ))}
+        {firstFivePuppies.map((puppy) => (
+          <li
+            key={puppy.id}
+            className="relative flex items-center overflow-clip rounded-md bg-white shadow-sm ring ring-black/5 transition duration-100 starting:scale-0 starting:opacity-0"
+          >
+            <img
+              height={32}
+              width={32}
+              alt={puppy.name}
+              className="aspect-square w-8 object-cover"
+              src={puppy.imageUrl}
+            />
+            <p className="px-3 text-sm text-slate-800">{puppy.name}</p>
+            <DeleteButton id={puppy.id} />
+          </li>
+        ))}
+        {extraPuppies > 0 && (
+          <li className="text-sm text-slate-800 self-center">
+            +{extraPuppies} more
+          </li>
+        )}
       </ul>
     </div>
   );
@@ -46,7 +49,7 @@ function DeleteButton({
 }: {
   id: Puppy["id"];
 }) {
-  const { processing, patch } = useForm();
+  const { processing, patch } = useForm({});
   return (
     <form
       className="h-full"
@@ -63,7 +66,7 @@ function DeleteButton({
         {processing ? (
           <LoaderCircle className="size-4 animate-spin stroke-slate-300" />
         ) : (
-          <X className={"size-4 stroke-slate-400 group-hover:stroke-red-400"}/>
+          <X className={"size-4 stroke-slate-400 group-hover:stroke-red-400"} />
         )}
       </button>
     </form>

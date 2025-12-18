@@ -28,6 +28,9 @@ class PuppyController extends Controller
                     ->paginate(9)
                     ->withQueryString()
             ),
+            'likedPuppies' => $request->user()
+                ? PuppyResource::collection($request->user()->likedPuppies)
+                : [],
             'filters' => [
                 'search' => $search,
             ],
@@ -36,7 +39,7 @@ class PuppyController extends Controller
 
     public function store(Request $request)
     {
-        sleep(1);
+        usleep(200000);
         // Validate the data
         $request->validate([
             'name' => 'required|string|max:255',
@@ -75,7 +78,7 @@ class PuppyController extends Controller
 
     public function like(Request $request, Puppy $puppy)
     {
-        sleep(2);
+        usleep(200000);
 
         $puppy->likedBy()->toggle($request->user()->id);
         return back();

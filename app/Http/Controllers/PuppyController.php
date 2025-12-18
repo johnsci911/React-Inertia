@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Action\OptimizeWebpImageAction;
 use App\Http\Resources\PuppyResource;
 use App\Models\Puppy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use Intervention\Image\Laravel\Facades\Image;
-use Illuminate\Support\Str;
 
 class PuppyController extends Controller
 {
@@ -50,19 +49,12 @@ class PuppyController extends Controller
 
         if ($request->hasFile('image')) {
             //Image optimization
-            $image = Image::read($request->file('image'));
+            $optimized = (new OptimizeWebpImageAction())->handle($request->file('image'));
 
-            // Scale down only
-            if ($image->width() > 1000) {
-                $image->scale(width: 1000);
-            }
-
-            $webpEncoded = $image->toWebp(quality: 95)->toString();
-
-            $fileName = Str::random() . '.webp';
+            $fileName = $optimized['fileName'];
             $path = 'puppies/' . $fileName;
 
-            $stored = Storage::disk('public')->put($path, $webpEncoded);
+            $stored = Storage::disk('public')->put($path, $optimized['webpString']);
 
             if (!$stored) {
                 return back()->withErrors(['image' => 'Failed to upload image.']);

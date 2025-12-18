@@ -7,6 +7,8 @@ use App\Models\Puppy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Str;
 
 class PuppyController extends Controller
 {
@@ -47,8 +49,22 @@ class PuppyController extends Controller
         $image_url = null;
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('puppies', 'public');
-            if (!$path) {
+            //Image optimization
+            $image = Image::read($request->file('image'));
+
+            // Scale down only
+            if ($image->width() > 1000) {
+                $image->scale(width: 1000);
+            }
+
+            $webpEncoded = $image->toWebp(quality: 95)->toString();
+
+            $fileName = Str::random() . '.webp';
+            $path = 'puppies/' . $fileName;
+
+            $stored = Storage::disk('public')->put($path, $webpEncoded);
+
+            if (!$stored) {
                 return back()->withErrors(['image' => 'Failed to upload image.']);
             }
             $image_url = Storage::url($path);

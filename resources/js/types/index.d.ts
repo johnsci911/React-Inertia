@@ -27,6 +27,11 @@ export interface SharedData {
     quote: { message: string; author: string };
     auth: Auth;
     sidebarOpen: boolean;
+    flash: {
+        success?: string;
+        info?: string;
+        warning?: string;
+    }
     [key: string]: unknown;
 }
 
@@ -43,12 +48,12 @@ export interface User {
 }
 
 export interface Puppy {
-  id: number;
-  name: string;
-  imageUrl: string;
-  trait: string;
-  user: Pick<User, "id" | "name">;
-  likedBy: User["id"][];
+    id: number;
+    name: string;
+    imageUrl: string;
+    trait: string;
+    user: Pick<User, "id" | "name">;
+    likedBy: User["id"][];
 }
 
 export interface Filters {

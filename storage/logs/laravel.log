@@ -2462,3 +2462,47 @@
 #69 /Users/johnkarlo/.composer/vendor/laravel/valet/server.php(110): require('/Users/johnkarl...')
 #70 {main}
 "} 
+[2025-12-19 10:50:27] local.ERROR: FilesystemIterator::__construct(/Users/johnkarlo/Documents/www/react-inertia/resources/js/routes/profile): Failed to open directory: No such file or directory {"exception":"[object] (UnexpectedValueException(code: 0): FilesystemIterator::__construct(/Users/johnkarlo/Documents/www/react-inertia/resources/js/routes/profile): Failed to open directory: No such file or directory at /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:745)
+[stacktrace]
+#0 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(745): FilesystemIterator->__construct('/Users/johnkarl...')
+#1 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(752): Illuminate\\Filesystem\\Filesystem->deleteDirectory('/Users/johnkarl...')
+#2 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/wayfinder/src/GenerateCommand.php(90): Illuminate\\Filesystem\\Filesystem->deleteDirectory('/Users/johnkarl...')
+#3 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Laravel\\Wayfinder\\GenerateCommand->handle()
+#4 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#5 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#6 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#7 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/Container.php(836): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#8 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call(Array)
+#9 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Command/Command.php(318): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#10 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#11 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Application.php(1073): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Wayfinder\\GenerateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 /Users/johnkarlo/Documents/www/react-inertia/artisan(16): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#17 {main}
+"} 
+[2025-12-19 10:50:28] local.ERROR: file_put_contents(/Users/johnkarlo/Documents/www/react-inertia/resources/js/actions/Laravel/Fortify/Http/Controllers/RecoveryCodeController.ts): Failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): file_put_contents(/Users/johnkarlo/Documents/www/react-inertia/resources/js/actions/Laravel/Fortify/Http/Controllers/RecoveryCodeController.ts): Failed to open stream: No such file or directory at /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:204)
+[stacktrace]
+#0 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'file_put_conten...', '/Users/johnkarl...', 204)
+#1 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'file_put_conten...', '/Users/johnkarl...', 204)
+#2 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(204): file_put_contents('/Users/johnkarl...', '/**\\n* @see \\\\Lar...', 0)
+#3 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/wayfinder/src/GenerateCommand.php(128): Illuminate\\Filesystem\\Filesystem->put('/Users/johnkarl...', '/**\\n* @see \\\\Lar...')
+#4 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/wayfinder/src/GenerateCommand.php(82): Laravel\\Wayfinder\\GenerateCommand->writeContent()
+#5 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Laravel\\Wayfinder\\GenerateCommand->handle()
+#6 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#7 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#8 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#9 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Container/Container.php(836): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#10 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call(Array)
+#11 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Command/Command.php(318): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#12 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Application.php(1073): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Wayfinder\\GenerateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 /Users/johnkarlo/Documents/www/react-inertia/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 /Users/johnkarlo/Documents/www/react-inertia/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 /Users/johnkarlo/Documents/www/react-inertia/artisan(16): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#19 {main}
+"} 

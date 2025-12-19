@@ -84,9 +84,13 @@ class PuppyController extends Controller
         return back();
     }
 
-    public function destroy(Puppy $puppy)
+    public function destroy(Request $request, Puppy $puppy)
     {
         $imagePath = str_replace('storage/', '', $puppy->image_url);
+
+        if ($request->user()->cannot('delete', $puppy)) {
+            return back()->withErrors(['error' => 'You do not have permission to delete this puppy.']);
+        }
 
         $puppy->delete();
 

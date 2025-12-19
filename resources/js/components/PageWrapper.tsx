@@ -4,15 +4,28 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 
 export function PageWrapper({ children }: { children: React.ReactNode }) {
-  const { props } = usePage<{ flash?: { success?: string; info?: string; warning?: string } }>();
+  const { props } = usePage<{
+    flash?: { success?: string; info?: string; warning?: string };
+    errors?: Record<string, string | string[]>;
+  }>();
 
   useEffect(() => {
     const flash = props.flash;
-    if (!flash) return;
-    if (flash.success) toast.success(flash.success);
-    if (flash.info) toast(flash.info); // or toast('info', ...)
-    if (flash.warning) toast('warning: ' + flash.warning);
-  }, [props.flash]);
+    const errors = props.errors;
+
+    if (flash) {
+      if (flash.success) toast.success(flash.success);
+      if (flash.info) toast(flash.info);
+      if (flash.warning) toast(`warning: ${flash.warning}`);
+    }
+
+    if (errors) {
+      if (errors.error) {
+        const messages = Array.isArray(errors.error) ? errors.error : [errors.error];
+        messages.forEach(msg => toast.error(msg));
+      }
+    }
+  }, [props.flash, props.errors]);
 
   return (
     <>

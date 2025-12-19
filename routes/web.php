@@ -17,6 +17,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('puppies', [PuppyController::class, 'store'])
         ->name('puppies.store');
+
+    Route::delete('puppies/{puppy}', [PuppyController::class, 'destroy'])
+        ->name('puppies.destroy');
 });
 
 require __DIR__.'/settings.php';

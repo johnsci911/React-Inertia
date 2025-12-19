@@ -83,4 +83,19 @@ class PuppyController extends Controller
         $puppy->likedBy()->toggle($request->user()->id);
         return back();
     }
+
+    public function destroy(Puppy $puppy)
+    {
+        $imagePath = str_replace('storage/', '', $puppy->image_url);
+
+        $puppy->delete();
+
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
+
+        return redirect()
+            ->route('home', ['page' => 1])
+            ->with('success', 'Puppy deleted successfully!');
+    }
 }

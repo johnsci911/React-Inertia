@@ -37,6 +37,45 @@ class PuppyController extends Controller
         ]);
     }
 
+    public function update(Request $request, Puppy $puppy)
+    {
+        // Validate the data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'trait' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+        ]);
+
+        if ($request->hasFile('image')) {
+            // Delete the old image
+            $oldImagePath = str_replace('storage/', '', $puppy->image_url);
+
+            // optimize and store the new image
+            $optimized = (new OptimizeWebpImageAction())->handle($request->file('image'));
+            $path = 'puppies/' . $optimized['fileName'];
+
+            $stored = Storage::disk('public')->put($path, $optimized['webpString']);
+            if (!$stored) {
+                return back()->withErrors(['image' => 'Failed to upload image.']);
+            }
+
+            $puppy->image_url = Storage::url($path);
+
+            if ($oldImagePath && Storage::disk('public')->exists($oldImagePath)) {
+                Storage::disk('public')->delete($oldImagePath);
+            }
+        }
+
+        // Update the puppy values
+        $puppy->name = $request->name;
+        $puppy->trait = $request->trait;
+
+        // Save the updated puppy
+        $puppy->save();
+
+        return back()->with('success', 'Puppy updated successfully!');
+    }
+
     public function store(Request $request)
     {
         usleep(200000);

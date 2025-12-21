@@ -2,6 +2,7 @@ import { PaginationResponse, type Puppy } from "../types";
 import { LikeToggle } from "./LikeToggle";
 import { Pagination } from "./pagination";
 import { PuppyDelete } from "./puppy-delete";
+import { PuppyUpdate } from "./puppy-update";
 
 export function PuppiesList({
   puppies,
@@ -27,9 +28,15 @@ type PuppyCardProps = {
 function PuppyCard({ puppy }: PuppyCardProps) {
   return (
     <li key={puppy.id} className="overflow-clip rounded-lg bg-white shadow-md ring ring-black/5 hover:-translate-y-0.5 relative">
-      <div className="absolute top-2 right-2">
-        { puppy.can.delete && <PuppyDelete puppy={puppy} /> }
-      </div>
+      {/* Only for puppy owners */}
+      {puppy.can.update && (
+        <div className="absolute top-2 right-2 items-center">
+          <div className="flex gap-2">
+            {<PuppyUpdate puppy={puppy} />}
+            {<PuppyDelete puppy={puppy} />}
+          </div>
+        </div>
+      )}
       <img
         className="aspect-square object-cover"
         alt={puppy.name}

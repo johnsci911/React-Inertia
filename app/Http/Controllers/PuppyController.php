@@ -78,7 +78,6 @@ class PuppyController extends Controller
 
     public function store(Request $request)
     {
-        usleep(200000);
         // Validate the data
         $request->validate([
             'name' => 'required|string|max:255',
@@ -117,16 +116,12 @@ class PuppyController extends Controller
 
     public function like(Request $request, Puppy $puppy)
     {
-        usleep(200000);
-
         $puppy->likedBy()->toggle($request->user()->id);
         return back();
     }
 
     public function destroy(Request $request, Puppy $puppy)
     {
-        usleep(500000);
-
         $imagePath = str_replace('storage/', '', $puppy->image_url);
 
         if ($request->user()->cannot('delete', $puppy)) {

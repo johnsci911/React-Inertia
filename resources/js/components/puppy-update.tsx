@@ -8,6 +8,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { update } from '@/routes/puppies';
+import { ImageUploadPreview } from './ImageUploadPreview';
 
 export function PuppyUpdate({ puppy }: { puppy: Puppy }) {
     const { data, setData, errors, post, processing } = useForm({
@@ -73,6 +74,8 @@ export function PuppyUpdate({ puppy }: { puppy: Puppy }) {
                     />
 
                     {errors.image && <p className="mt-1 text-xs text-red-500">{errors.image}</p>}
+
+                    <ImageUploadPreview source={data.image ?? puppy.imageUrl} />
 
                     <DialogFooter className="gap-2">
                         <DialogClose asChild>

@@ -11,6 +11,7 @@
 /storage/*.key
 /storage/pail
 /storage/logs
+/storage/framework/view
 /vendor
 .DS_Store
 .env
